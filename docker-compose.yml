@@ -1,12 +1,20 @@
 version: '3.7'
 
 services:
-  NOME-PROGETTO:
-    container_name: NOME-PROGETTO
-    restart: always
-    build:
-      context: .
-      dockerfile: src/NOME-PROGETTO/Dockerfile
+  rabbitmq:
+    image: angelo87dock/gestionesagre-rabbitmq:1.0
+    container_name: rabbitmq
+    restart: "always"
+    volumes:
+      - /docker/storage-rabbitmq/files:/var/lib/rabbitmq
+      - /docker/storage-rabbitmq/logs:/var/log/rabbitmq/log
+    environment:
+      - RABBITMQ_DEFAULT_USER=CHANGE-ME
+      - RABBITMQ_DEFAULT_PASS=CHANGE-ME
+      - RABBITMQ_NODENAME=rabbit@localhost
+    ports:
+      - 5672:5672
+      - 15672:15672
     networks:
       - lan-network
 
