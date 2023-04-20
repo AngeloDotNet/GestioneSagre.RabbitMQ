@@ -1,24 +1,10 @@
 version: '3.7'
 
 services:
-  rabbitmq:
-    image: angelo87dock/gestionesagre-rabbitmq:1.0
+  infrastructure:
     container_name: rabbitmq
-    restart: "always"
-    volumes:
-      - /docker/storage-rabbitmq/files:/var/lib/rabbitmq
-      - /docker/storage-rabbitmq/logs:/var/log/rabbitmq/log
-    environment:
-      - RABBITMQ_DEFAULT_USER=CHANGE-ME
-      - RABBITMQ_DEFAULT_PASS=CHANGE-ME
-      - RABBITMQ_NODENAME=rabbit@localhost
+    restart: always
+    build: ./src/GestioneSagre.RabbitMQ/
     ports:
       - 5672:5672
       - 15672:15672
-    networks:
-      - lan-network
-
-networks:
-  lan-network:
-    external:
-      name: docker-net
